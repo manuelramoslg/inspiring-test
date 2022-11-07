@@ -5,9 +5,9 @@ Hay que desarrollar un buscador de facts de Chuck Norris que se obtienen de la A
 - El buscador tendrá las siguientes características:
   - No necesita login, es abierto.
   - Se permitirá buscar por:
-  - Palabras.
-  - Categorías.
-  - De manera aleatoria.
+    - Palabras.
+    - Categorías.
+    - De manera aleatoria.
   - Los resultados se mostrarán paginados.
   - Cada búsqueda junto con los resultados obtenidos se guardarán en base de datos.
   - Existirá la opción de introducir una cuenta de email para que se envíen los resultados de la búsqueda.
@@ -32,6 +32,13 @@ Forma de entrega: subirlo a un repositorio público de GitHub o Bitbucket incluy
         gem install bundle
         bundle install
         rails db:create db:migrate
-        ./bin/dev
+        EDITOR="nano --wait" bin/rails credentials:edit
         ```
+        - Este comando mostrara el contenido del archivo credentials.yml, agregar email con la siguiente estructura:
+        ```
+        company:
+          email: "example@example.com"
+        ```  
+        
 
+        ./bin/dev
