@@ -10,9 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_07_175820) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_08_201325) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fact_result_categories", force: :cascade do |t|
+    t.bigint "fact_result_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_fact_result_categories_on_category_id"
+    t.index ["fact_result_id"], name: "index_fact_result_categories_on_fact_result_id"
+  end
+
+  create_table "fact_results", force: :cascade do |t|
+    t.string "url"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "searches", force: :cascade do |t|
     t.string "query"
@@ -34,5 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_175820) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "fact_result_categories", "categories"
+  add_foreign_key "fact_result_categories", "fact_results"
   add_foreign_key "searches", "users"
 end
