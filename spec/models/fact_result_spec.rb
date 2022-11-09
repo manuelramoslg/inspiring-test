@@ -1,14 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe FactResult, type: :model do
+  let!(:fact_result) { FactoryBot.create(:fact_result) }
+  
   context "relationship" do
     it { should have_many(:categories).through(:fact_result_categories) }
   end
   
   context 'validations' do
     it { should validate_presence_of(:url) }
-    it { should validate_uniqueness_of(:url) }
+    it { should validate_uniqueness_of(:url).case_insensitive }
     it { should validate_presence_of(:value) }
+    it { should validate_presence_of(:search) }
   end
 
   context "when trying to save a fact_result with the same url" do

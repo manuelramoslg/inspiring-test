@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Search, type: :model do
   context "relationship" do
     it { should belong_to(:user).class_name('User') }
+    it { should have_many(:fact_results).class_name('FactResult') }
+
   end
   
   context 'validations' do
