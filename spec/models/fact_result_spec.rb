@@ -9,19 +9,8 @@ RSpec.describe FactResult, type: :model do
   
   context 'validations' do
     it { should validate_presence_of(:url) }
-    it { should validate_uniqueness_of(:url).case_insensitive }
     it { should validate_presence_of(:value) }
     it { should validate_presence_of(:search) }
-  end
-
-  context "when trying to save a fact_result with the same url" do
-    let!(:fact_result) { FactoryBot.create(:fact_result, url: "https://api/zk14uc6xr82d7ig9qhaymg") }
-    let(:new_fact_result) { FactoryBot.build(:fact_result, url: "https://api/zk14uc6xr82d7ig9qhaymg") }
-    
-    it 'should not persist' do
-      expect(fact_result.url).to eq( "https://api/zk14uc6xr82d7ig9qhaymg" )
-      expect(new_fact_result.save).to be(false)
-    end
   end
 
   context "Validate FactoryBot" do

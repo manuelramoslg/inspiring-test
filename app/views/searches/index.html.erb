@@ -1,10 +1,10 @@
 <div class="container">
   <h1 class="display-4">Search</h1>
-  <p class="lead">Search facts by category or by free text</p>
+  <p class="lead">Search fact by categories, free text or empty for a random search</p>
   
   <%= render "categories", categories: @categories %>
   
   <%= render "search" %>
-
-  <%# <%= render "result", fact_result: @fact_results %>
+  
+  <%= render "result", fact_results: @fact_results %>
 </div>
