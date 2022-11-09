@@ -1,0 +1,12 @@
+<% if  @fact_results.any? %>
+  <h2>Results</h2>
+
+  <div id="fact_results">
+    <% @fact_results.each do |fact_result| %>
+      <p><%= fact_result.url %></p>
+      <p><%= fact_result.value %></p>
+    <% end %>
+  </div>
+<% end %>
+
+
