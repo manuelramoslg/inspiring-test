@@ -4,7 +4,6 @@ class FactResult < ApplicationRecord
   has_many :categories, through: :fact_result_categories
 
   validates :url, presence: true
-  validates_uniqueness_of :url, case_sensitive: false
 
   validates :value, presence: true
   validates :search, presence: true

@@ -5,10 +5,6 @@ RSpec.describe "/searches", type: :request do
     FactoryBot.attributes_for(:search)
   }
 
-  let(:invalid_attributes) {
-    FactoryBot.attributes_for(:search, :invalid)
-  }
-
   describe "GET /index" do
     it "renders a successful response" do
       Search.create! valid_attributes
@@ -28,14 +24,6 @@ RSpec.describe "/searches", type: :request do
       it "redirects to the index search" do
         post searches_create_url, params: { search: valid_attributes }
         expect(response).to redirect_to(searches_index_url)
-      end
-    end
-
-    context "with invalid parameters" do
-      it "does not create a new Search" do
-        expect {
-          post searches_create_url, params: { search: invalid_attributes }
-        }.to change(Search, :count).by(0)
       end
     end
   end

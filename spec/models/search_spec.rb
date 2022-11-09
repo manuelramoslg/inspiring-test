@@ -8,16 +8,7 @@ RSpec.describe Search, type: :model do
   end
   
   context 'validations' do
-    it { should validate_presence_of(:query) }
     it { should validate_presence_of(:user) }
-  end
-
-  context "when to create a search" do
-    let(:search) { FactoryBot.create(:search, query: " CaReeR ") }
-    
-    it 'should remove white spaces and downcase query string' do
-      expect(search.query).to eq( "career" )
-    end
   end
 
   context "Validate FactoryBot" do

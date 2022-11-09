@@ -1,18 +1,20 @@
 <%= form_with(model: @search, url: searches_create_path) do |form| %> 
   <% if @search.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(@search.errors.count, "error") %> prohibited this search from being saved:</h2>
+    <div style="color: red">
+      <h2><%= pluralize(@search.errors.count, "error") %> prohibited this search from being saved:</h2>
 
-        <ul>
-          <% @search.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+      <ul>
+      <% @search.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
     
   <div class="input-group">
     <%= form.text_field :query, class: "form-control", placeholder: "Search" %>
     <%= form.submit "Search", class: "btn btn-outline-secondary" %>
+    <%= form.submit "Random", class: "btn btn-outline-secondary" %>
   </div>
 <% end %>
+<br>
