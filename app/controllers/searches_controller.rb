@@ -4,7 +4,7 @@ class SearchesController < ApplicationController
   def index
     @search = Search.new
     @categories = show_categories
-    @fact_results = Search.where(user: current_or_guest_user).last&.fact_results || []
+    @fact_results = Search.where(user: current_or_guest_user).last.fact_results.page params[:page]
   end
 
   def create

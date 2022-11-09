@@ -5,6 +5,8 @@
   <%= render "categories", categories: @categories %>
   
   <%= render "search" %>
-  
+
   <%= render "result", fact_results: @fact_results %>
+
+  <%= paginate @fact_results, theme: 'bootstrap-5' %>
 </div>
