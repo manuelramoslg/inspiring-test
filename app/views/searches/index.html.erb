@@ -6,7 +6,9 @@
   
   <%= render "search" %>
 
-  <%= render "result", fact_results: @fact_results %>
+  <%= render "result", fact_results: @fact_results %> 
 
   <%= paginate @fact_results, theme: 'bootstrap-5' %>
+  
+  <%= render "email_form", fact_results: @fact_results %>
 </div>
