@@ -1,7 +1,6 @@
 <div class="container">
-  <h1 class="display-4">Search</h1>
-  <p class="lead">Search fact by categories, free text or empty for a random search</p>
-  
+  <h1 class="display-4"><%= t('activerecord.models.search.one') %></h1>
+  <br>
   <%= render "categories", categories: @categories %>
   
   <%= render "search" %>
@@ -10,5 +9,6 @@
 
   <%= paginate @fact_results, theme: 'bootstrap-5' %>
   
+  <hr>
   <%= render "email_form", fact_results: @fact_results %>
 </div>

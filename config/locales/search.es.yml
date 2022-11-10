@@ -1,0 +1,26 @@
+es:
+  activerecord:
+    models:
+      search:
+        one: "Buscar"
+        other: "Busquedas"
+
+    attributes:
+      search:
+        query: "Busqueda"
+  
+  query:
+    create_success: "Busqueda exitosa"
+    message: "Busque hechos por categorías, texto libre o vacío para una búsqueda aleatoria"
+    create_error: "Prohibido guardar esta búsqueda:"
+    random: "Aleatoria"
+
+  email:
+    send_email: "Enviar email"
+    email_placeholder: "Enviar resultados por email"
+
+  messages:
+    without_results: "No se encotraron resultados"
+
+  mailer:
+    subject: "Resultados Chuck Norris Facts"

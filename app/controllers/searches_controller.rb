@@ -17,7 +17,7 @@ class SearchesController < ApplicationController
     respond_to do |format|
       if @search.save
         get_fact_results(@search)
-        format.html { redirect_to searches_index_url, notice: "Search was successfully created." }
+        format.html { redirect_to searches_index_url, notice: I18n.t("query.create_success") }
       else
         format.html { redirect_to searches_index_url, notice: :unprocessable_entity }
       end

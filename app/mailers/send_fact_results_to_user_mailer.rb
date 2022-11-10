@@ -4,7 +4,7 @@ class SendFactResultsToUserMailer < ApplicationMailer
   def send_email(email, data)
     @email = email
     @data = data
-    mail(to: email, subject: "Your fact results")
+    mail(to: email, subject: I18n.t("mailer.subject"))
   end
   
 end

@@ -1,0 +1,26 @@
+en:
+  activerecord:
+    models:
+      search:
+        one: "Search"
+        other: "Searches"
+
+    attributes:
+      search:
+        query: "Search"
+  
+  query:
+    create_success:  "Search success"
+    message: "Search fact by categories, free text or empty for a random search"
+    create_error: "prohibited this search from being saved:"
+    random: "Random"
+
+  email:
+    send_email: "Send email"
+    email_placeholder: "Send fact results by email"
+
+  messages:
+    without_results: "Without results"
+
+  mailer:
+    subject: "Results Chuck Norris Facts"
