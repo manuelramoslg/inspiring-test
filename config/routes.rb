@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
-  get 'searches/index'
-  get 'searches/random'
-  post 'searches/create'
-  post "searches/send_fact_email"
-
-
-  devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  scope "(:locale)", locale: /en|es/ do
+    get 'searches/index'
+    get 'searches/random'
+    post 'searches/create'
+    post "searches/send_fact_email"
 
-  # Defines the root path route ("/")
-  root 'searches#index'
+    devise_for :users
+    root 'searches#index'
+  end
 end

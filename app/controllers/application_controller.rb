@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_action :set_locale
 
   # if user is logged in, return current_user, else return guest_user
   def current_or_guest_user
@@ -29,21 +30,29 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # called (once) when the user logs in, insert any code your application needs
-  # to hand off from guest_user to current_user.
-  def logging_in
-    # For example:
-    # guest_comments = guest_user.comments.all
-    # guest_comments.each do |comment|
-      # comment.user_id = current_user.id
-      # comment.save!
-    # end
-  end
+    # called (once) when the user logs in, insert any code your application needs
+    # to hand off from guest_user to current_user.
+    def logging_in
+      # For example:
+      # guest_comments = guest_user.comments.all
+      # guest_comments.each do |comment|
+        # comment.user_id = current_user.id
+        # comment.save!
+      # end
+    end
 
-  def create_guest_user
-    user = User.new(email: "chuck_#{Time.now.to_i}#{rand(100)}@norris.com")
-    user.save!(validate: false)
-    session[:guest_user_id] = user.id
-    user
-  end
+    def create_guest_user
+      user = User.new(email: "chuck_#{Time.now.to_i}#{rand(100)}@norris.com")
+      user.save!(validate: false)
+      session[:guest_user_id] = user.id
+      user
+    end
+
+    def set_locale
+      I18n.locale = params[:locale] || I18n.default_locale
+    end
+  
+    def default_url_options
+      { locale: I18n.locale }
+    end
 end

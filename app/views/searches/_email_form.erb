@@ -1,7 +1,7 @@
 <%= form_with(url: searches_send_fact_email_path) do |form| %> 
   <div class="input-group">  
-    <%= form.email_field  :email, class: "form-control", placeholder: "Send fact results by email" %>
-    <%= form.submit 'Send e-mail', class: "btn btn-outline-secondary" %>
+    <%= form.email_field  :email, class: "form-control", placeholder: t('email.email_placeholder') %>
+    <%= form.submit t('email.send_email'), class: "btn btn-outline-secondary" %>
   </div>
 <% end %>
 <br>
