@@ -21,6 +21,7 @@ en:
 
   messages:
     without_results: "Without results"
+    available_categories: "Available categories"
 
   mailer:
     subject: "Results Chuck Norris Facts"
