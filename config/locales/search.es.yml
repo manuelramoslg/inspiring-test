@@ -21,6 +21,7 @@ es:
 
   messages:
     without_results: "No se encotraron resultados"
+    available_categories: "Categorías disponibles"
 
   mailer:
     subject: "Resultados Chuck Norris Facts"
