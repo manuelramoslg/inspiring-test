@@ -1,5 +1,5 @@
 class SendFactResultsToUserMailer < ApplicationMailer
-  default from: 'manuelramoslg@gmail.com'
+  default from: 'chuck@norris.fact'
 
   def send_email(email, data)
     @email = email
