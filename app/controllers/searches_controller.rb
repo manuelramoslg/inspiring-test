@@ -4,7 +4,10 @@ class SearchesController < ApplicationController
   def index
     @search = Search.new
     @categories = show_categories
-    @fact_results = Search.where(user: current_or_guest_user).last.fact_results.page params[:page]
+    @fact_results = FactResult.joins(:search)
+      .where(search_id: Search.last)
+      .where(searches: { user: current_or_guest_user })
+      .page params[:page]
   end
 
   def create
@@ -13,7 +16,7 @@ class SearchesController < ApplicationController
     @search.query = "Random" if @search.query&.empty?
     respond_to do |format|
       if @search.save
-        fact_results(@search)
+        get_fact_results(@search)
         format.html { redirect_to searches_index_url, notice: "Search was successfully created." }
       else
         format.html { redirect_to searches_index_url, notice: :unprocessable_entity }
@@ -21,12 +24,22 @@ class SearchesController < ApplicationController
     end
   end
 
+  def send_fact_email
+    data = FactResult.joins(:search)
+      .where(search_id: Search.last)
+      .where(searches: { user: current_or_guest_user })
+      
+    User.find_by(email: current_or_guest_user.email).update(email: params[:email])
+    SendFactResultsToUserMailer.send_email(params[:email], data).deliver_now
+    redirect_to searches_index_url, notice: "Email sended"
+  end
+
   private
     def search_params
       params.require(:search).permit(:query, :user_id)
     end
 
-    def fact_results(search)
+    def get_fact_results(search)
       get_facts(search.query).each do |result|
         fact_result = FactResult.create(
           value: result["value"], 
