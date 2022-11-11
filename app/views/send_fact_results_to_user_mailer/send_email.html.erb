@@ -8,7 +8,7 @@
     <h1 class="display-4"><%= @email %></h1>
     <% if @data.any? %>
       <% @data.each do |result| %>
-        <div id="<%= dom_id @data.last.search %>" class="card">
+        <div id="<%= result.id %>" class="card">
           <div class="card-header">
             <strong><%= I18n.t('activerecord.attributes.search.query') %>:</strong>  <%= result.search.query.capitalize %>
           </div>

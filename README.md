@@ -24,6 +24,7 @@ Forma de entrega: subirlo a un repositorio público de GitHub o Bitbucket incluy
 - Rails 7.0.4
 - Node v19.0.0
 - Yarn 1.22.19
+- Redis 7.0.5
 
 # Configuración
   - En la carpeta del proyecto ejecutar: 
@@ -32,16 +33,34 @@ Forma de entrega: subirlo a un repositorio público de GitHub o Bitbucket incluy
         gem install bundle
         bundle install
         rails db:create db:migrate
-        ./bin/dev
     ```
+  - Configurar cliente de correo:
+    - Ejecutar en el proyecto:
+      ```
+      EDITOR="nano" bin/rails credentials:edit
+      ```
+  - Agregar credenciales con la siguiente estructura:
+      ```
+      mailer:
+        email: "chuck@norris.fact"
+        password: "youDontFindChuckNorrisHeFindsYou"
+      ```
+  - Levantar servidor rails:
+      ```
+        ./bin/dev
+      ```
+  - Levantar servidor sidekiq:
+      ```
+        sidekiq
+      ```
 # Solución 
 
-Para el desarrollo de Inspiring Test se utilizó el patrón de diseño modelo, vista, controlador(MVC) y para las características solicitadas se utilizaron las siguientes gemas:
+Para el desarrollo de InspiringTest se utilizó el patrón de diseño modelo, vista, controlador(MVC) y para las características solicitadas se utilizaron las siguientes gemas:
 
-- Para el usuario se usó la gema Devise, que permite manejar sesiones de invitados, de esta manera se puede saber qué usuario se encuentra conectado y en caso de que envíe los Fact ́s a su email se puede persistir el email.
+- Para obtener el usuario actual se usó la gema Devise, que permite manejar sesiones de invitados, de esta manera se puede saber qué usuario se encuentra conectado y en caso de que envíe los Facts a su email se puede persistir el email.
 - Para la integración con el api.chucknorris.io se usó la gema Faraday por su simpleza y flexibilidad.
 - Los resultados se muestran paginados con Kaminari y para mejorar su apariencia se utilizó la gema bootstrap5-kaminari-views.
-- Para el email se utilizó el mailer de rails.
+- Para el email se utilizó el mailer de rails y es enviado de forma asíncrona usando redis y sidekiq.
 - Para la internacionalización se utilizó la gema rails-i18n, se ajustaron las rutas para que el cambio de idiomas sea dinámico basado en la selección del menú.
 - Cada búsqueda queda persistida en la base de datos, los datos persistidos son:
   - Query de la búsqueda
@@ -52,13 +71,13 @@ Para el desarrollo de Inspiring Test se utilizó el patrón de diseño modelo, v
 
 <img width="600" alt="Screenshot_1" src="https://user-images.githubusercontent.com/4138880/201215838-b22a4f4f-0a1b-48bb-aa88-0ef7de8f67fc.png">
 
-# Español
+# Página en Español
 
 ![Image](https://user-images.githubusercontent.com/4138880/201219094-47d472a9-dbc1-4d15-883f-a37a18dc99ef.png)
 
 ![Image](https://user-images.githubusercontent.com/4138880/201219095-0ba90e9b-7561-42ef-b147-532690eb068a.png)
 
-# Inglés
+# Página en Inglés
 
 ![Image](https://user-images.githubusercontent.com/4138880/201219093-a13f36b8-ff3b-4674-aaac-fe319faf75e0.png)
 
@@ -66,6 +85,5 @@ Para el desarrollo de Inspiring Test se utilizó el patrón de diseño modelo, v
 
 # Próximas mejoras
 
-- Agregar envío asíncrono de emails usando redis y sidekiq.
 - Mejorar el manejo de errores y la forma en que se muestran.
 - Dockerizar proyecto.
