@@ -25,13 +25,8 @@ class SearchesController < ApplicationController
   end
 
   def send_fact_email
-    data = FactResult.joins(:search)
-      .where(search_id: Search.last)
-      .where(searches: { user: current_or_guest_user })
-      
-    User.find_by(email: current_or_guest_user.email).update(email: params[:email])
-    SendFactResultsToUserMailer.send_email(params[:email], data).deliver_now
-    redirect_to searches_index_url, notice: "Email sended"
+    SendFactResultFactJob.perform_later(current_or_guest_user.email, params[:email])
+    redirect_to searches_index_url, notice: I18n.t("mailer.notify")
   end
 
   private

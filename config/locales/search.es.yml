@@ -25,3 +25,4 @@ es:
 
   mailer:
     subject: "Resultados Chuck Norris Facts"
+    notify: "Email enviado"
