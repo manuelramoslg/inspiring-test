@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :fact_result do
     url { Faker::Commerce.unique.promotion_code(digits: 22) }
@@ -5,7 +7,7 @@ FactoryBot.define do
     search_id { FactoryBot.create(:search).id }
 
     trait :with_category do
-      categories { [ FactoryBot.create(:category) ] }  
+      categories { [FactoryBot.create(:category)] }
     end
 
     trait :invalid do
