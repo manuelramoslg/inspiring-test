@@ -1,8 +1,12 @@
-module Searcheable extend ActiveSupport::Concern
-  private  
-  
+# frozen_string_literal: true
+
+module Searcheable
+  extend ActiveSupport::Concern
+
+  private
+
   def get_categories
-    response = Faraday.get("https://api.chucknorris.io/jokes/categories")
+    response = Faraday.get("#{url_base}/categories")
     JSON.parse(response.body)
   end
 
@@ -17,25 +21,29 @@ module Searcheable extend ActiveSupport::Concern
   end
 
   def get_random_fact
-    response = Faraday.get('https://api.chucknorris.io/jokes/random')
+    response = Faraday.get("#{url_base}/random")
     [JSON.parse(response.body)]
   end
 
   def get_random_by_categorie(query)
-    response = Faraday.get("https://api.chucknorris.io/jokes/random?category=#{query}")
+    response = Faraday.get("#{url_base}/random?category=#{query}")
     [JSON.parse(response.body)]
   end
-  
+
   def get_fact_by_query(query)
-    response = Faraday.get("https://api.chucknorris.io/jokes/search?query=#{query}")
-    JSON.parse(response.body)["result"]
+    response = Faraday.get("#{url_base}/search?query=#{query}")
+    JSON.parse(response.body)['result']
   end
 
   def random_fact?
-    params[:search][:query].blank? || params[:commit].eql?("Random")
+    params[:search][:query].blank? || params[:commit].eql?('Random')
   end
 
   def categorie_fact?(query)
     Category.all.map(&:name).uniq.include?(query.downcase)
+  end
+
+  def url_base
+    Rails.application.credentials.config[:url][:base]
   end
 end

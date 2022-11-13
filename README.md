@@ -41,6 +41,9 @@ Forma de entrega: subirlo a un repositorio público de GitHub o Bitbucket incluy
       ```
   - Agregar credenciales con la siguiente estructura:
       ```
+      url:
+        base: "https://api.chucknorris.io/jokes"
+
       mailer:
         email: "chuck@norris.fact"
         password: "youDontFindChuckNorrisHeFindsYou"

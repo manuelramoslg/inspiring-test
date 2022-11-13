@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Preview all emails at http://localhost:3000/rails/mailers/send_fact_results_to_user
 class SendFactResultsToUserPreview < ActionMailer::Preview
   def send_email
