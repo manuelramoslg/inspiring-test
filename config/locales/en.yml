@@ -15,3 +15,16 @@ en:
       next: Next &rsaquo;
       previous: "&lsaquo; Prev"
       truncate: "&hellip;"
+  errors:
+    bad_request: # code: "400"
+      title: "Bad Request"
+      message: "Unable to process request, an error occurred while getting data from api.chucknorris.io"
+    forbidden: # code: "403"
+      title: "Access Denied"
+      message: "You do not have access or permissions to enter this page."
+    not_found: # code: "404"
+      title: "Keep Trying"
+      message: "This page does not exist or has not been found"
+    internal_server_error: # code: "500"
+      title: "APPOLOGY"
+      message: "Our servers are not available at the moment."
