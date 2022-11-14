@@ -15,9 +15,8 @@ class SearchesController < ApplicationController
   def create
     @search = Search.new(search_params)
     @search.user = current_or_guest_user
-    @search.query = 'Random' if @search.query && @search.query.empty?
+    @search.query = 'Random' if @search.query.empty?
     @search.save
-    get_fact_results(@search)
     respond_to do |format|
       if get_fact_results(@search)
         format.html { redirect_to searches_index_url, notice: I18n.t('query.create_success') }
