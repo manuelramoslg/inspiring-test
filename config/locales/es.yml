@@ -15,3 +15,17 @@ es:
       next: Siguiente &rsaquo;
       previous: "&lsaquo; Anterior"
       truncate: "&hellip;"
+
+  errors:
+    bad_request: # code: "400"
+      title: "Solicitud Incorrecta"
+      message: "No se puede procesar la solicitud, ocurrió un error al obtener los datos de api.chucknorris.io"
+    forbidden: # code: "403"
+      title: "Acceso denegado"
+      message: "No tienes acceso o los permisos para ingresar a esta página."
+    not_found: # code: "404"
+      title: "Siga intentando"
+      message: "Esta página no existe o no ha sido encontrada"
+    internal_server_error: # code: "500"
+      title: "DISCULPA"
+      message: "Pero nuestros servidores no están disponibles por el momento."

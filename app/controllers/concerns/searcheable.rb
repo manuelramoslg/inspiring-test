@@ -7,17 +7,18 @@ module Searcheable
 
   def get_categories
     response = Faraday.get("#{url_base}/categories")
+    render_error(response) if !response.status.eql?(200)
     JSON.parse(response.body)
   end
 
   def get_facts(query)
-    if random_fact?
-      get_random_fact
-    elsif categorie_fact?(query)
-      get_random_by_categorie(query)
-    else
-      get_fact_by_query(query)
-    end
+      if random_fact?
+        get_random_fact
+      elsif categorie_fact?(query)
+        get_random_by_categorie(query)
+      else
+        get_fact_by_query(query)
+      end
   end
 
   def get_random_fact
@@ -45,5 +46,9 @@ module Searcheable
 
   def url_base
     Rails.application.credentials.config[:url][:base]
+  end
+
+  def render_error(response)
+    render "errors/#{response.status}", status: "#{response.status}", layout: 'application'
   end
 end

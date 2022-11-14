@@ -16,12 +16,13 @@ class SearchesController < ApplicationController
     @search = Search.new(search_params)
     @search.user = current_or_guest_user
     @search.query = 'Random' if @search.query && @search.query.empty?
+    @search.save
+    get_fact_results(@search)
     respond_to do |format|
-      if @search.save
-        get_fact_results(@search)
+      if get_fact_results(@search)
         format.html { redirect_to searches_index_url, notice: I18n.t('query.create_success') }
       else
-        format.html { redirect_to searches_index_url, notice: :unprocessable_entity }
+        format.html { redirect_to searches_index_url, notice: I18n.t('errors.bad_request.message') }
       end
     end
   end
@@ -38,18 +39,24 @@ class SearchesController < ApplicationController
   end
 
   def get_fact_results(search)
-    get_facts(search.query).each do |result|
-      fact_result = FactResult.create(
-        value: result['value'],
-        search_id: search.id,
-        url: result['url']
-      )
-      if result['categories'].any?
-        result['categories'].each do |category_name|
-          fact_result.categories << Category.find_or_create_by(name: category_name)
+    facts = get_facts(search.query)
+    
+    if facts.last.has_key?('url')
+      facts.each do |result|
+        fact_result = FactResult.create(
+          value: result['value'],
+          search_id: search.id,
+          url: result['url']
+        )
+        if result['categories'].any?
+          result['categories'].each do |category_name|
+            fact_result.categories << Category.find_or_create_by(name: category_name)
+          end
         end
+        fact_result
       end
-      fact_result
+    else
+      false
     end
   end
 
@@ -67,7 +74,9 @@ class SearchesController < ApplicationController
   end
 
   def show_categories
-    persist_categories
+    if get_categories.class.eql?(Array)
+      persist_categories
+    end
     Category.all.pluck(:name).uniq.sort
   end
 end
